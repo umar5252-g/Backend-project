@@ -1,0 +1,17 @@
+{
+  "name": "backend-s",
+  "version": "1.0.0",
+  "description": "creating my first backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "Umar Khan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
