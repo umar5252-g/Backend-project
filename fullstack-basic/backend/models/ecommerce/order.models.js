@@ -24,8 +24,14 @@ const orderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    address: {
+      type: string,
+      enum: ["PENDING", "CANCELLED", "DELIVERD"],
+      default: "",
+    },
     orderItems: [orderItemSchema],
   },
+
   { timestamps: true }
 );
 
