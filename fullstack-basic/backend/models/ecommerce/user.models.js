@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       lowercase: true,
     },
+    dob: {
+      type: Number,
+      required: true,
+    },
   },
   { timeStamps: true }
 );
