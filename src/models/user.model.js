@@ -8,6 +8,7 @@ const UserSchema = new Schema(
       unique: true,
       trim: true,
       lowercase: true,
+      index: true,
     },
     gmail: {
       type: String,
@@ -17,6 +18,9 @@ const UserSchema = new Schema(
     fullName: {
       type: String,
       required: true,
+      lowercase: true,
+      trim: true,
+      index: true,
     },
     avatar: {
       type: String,
@@ -24,7 +28,7 @@ const UserSchema = new Schema(
     },
     password: {
       type: String,
-      required: t[(true, "password is required")],
+      required: [(true, "password is required")],
     },
     coverImage: {
       type: String,
@@ -34,7 +38,7 @@ const UserSchema = new Schema(
     },
     watchHistory: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Video",
     },
   },
 
