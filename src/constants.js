@@ -1,1 +1,1 @@
-export const DB_NAME = "umarDataBase";
+export const DB_NAME = "umar_DataBase";

@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 const UserSchema = new Schema(
   {
-    userName: {
+    username: {
       type: String,
       required: true,
       unique: true,
@@ -12,7 +12,7 @@ const UserSchema = new Schema(
       lowercase: true,
       index: true,
     },
-    gmail: {
+    email: {
       type: String,
       required: true,
       unique: true,
@@ -28,14 +28,15 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+
     password: {
       type: String,
-      required: [(true, "password is required")],
+      required: [true, "password is required"],
     },
     coverImage: {
       type: String,
     },
-    refreshTokens: {
+    refreshToken: {
       type: String,
     },
     watchHistory: {
@@ -47,12 +48,16 @@ const UserSchema = new Schema(
   { timestamps: true },
 );
 
-UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
-});
+// UserSchema.pre("save", async function (next) {
+//   if (!this.isModified("password")) return next();
+//   this.password = await bcrypt.hash(this.password, 10);
+//   next();
+// });
 
+UserSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  this.password = await bcrypt.hash(this.password, 10);
+});
 UserSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
 };

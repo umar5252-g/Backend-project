@@ -43,7 +43,6 @@ const registerUser = asyncHandler(async (req, res) => {
   //   username,
   //   "\n password:",
   //   password,
-
   // );
 
   if (
@@ -59,17 +58,19 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(409, "User with the email or username already exists");
   }
   // console.log(req.files);
-  const avatarLocalPath = req.files?.avatar[0]?.path;
+  // const avatarLocalPath = req.files?.avatar[0]?.path;
   // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+  const avatarLocalPath = req.files?.avatar?.[0]?.path || null;
+  const coverImageLocalPath = req.files?.coverImage?.[0]?.path || null;
 
-  let coverImageLocalPath;
-  if (
-    req.files &&
-    Array.isArray(req.files.coverImage) &&
-    req.files.coverImage.length > 0
-  ) {
-    coverImageLocalPath = req.files.coverImage[0].path;
-  }
+  // let coverImageLocalPath;
+  // if (
+  //   req.files &&
+  //   Array.isArray(req.files.coverImage) &&
+  //   req.files.coverImage.length > 0
+  // ) {
+  //   coverImageLocalPath = req.files.coverImage[0].path;
+  // }
 
   if (!avatarLocalPath) {
     throw new ApiError(400, "Avatar file is required");
@@ -113,6 +114,7 @@ const loginUser = asyncHandler(async (req, res) => {
   //send cookie
 
   const { username, email, password } = req.body;
+  console.log(email);
 
   if (!(username || email)) {
     throw new ApiError(400, "username or email is required");
@@ -179,6 +181,7 @@ const logoutUser = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .clearCookie("accessToken", options)
-    .clearCookie("refreshToken", options);
+    .clearCookie("refreshToken", options)
+    .json(new ApiResponse(200, {}, "User logged out successfully"));
 });
 export { registerUser, loginUser, logoutUser };
